@@ -164,6 +164,8 @@ async def callback_handler(callback: types.CallbackQuery):
             document=privacy_file,
             caption="Вот ваш файл!"
         )
+        #Удаляем сообщение
+            await callback.message.delete()
         # Уведомляем пользователя всплывающим окном
             await callback.answer("Файл отправлен!", show_alert=True)
         except FileNotFoundError:
