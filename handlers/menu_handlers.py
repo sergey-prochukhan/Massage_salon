@@ -15,6 +15,7 @@ int_pic = FSInputFile(os.path.join(all_media_dir, 'int_pic.jpg'))
 out_pic = FSInputFile(os.path.join(all_media_dir, 'out_pic.jpg'))
 proc_pic = FSInputFile(os.path.join(all_media_dir, 'proc_pic.jpg'))
 spec_pic = FSInputFile(os.path.join(all_media_dir, 'spec_pic.jpg'))
+help_pic= FSInputFile(os.path.join(all_media_dir, 'help_pic.jpeg'))
 
 # Основная клавиатура меню
 main_menu_kb = InlineKeyboardMarkup(inline_keyboard=[
@@ -101,6 +102,24 @@ async def callback_handler(callback: types.CallbackQuery):
                 "Мастер копчикового массажа\n"
                 "Диплом копчиколома 4 разряда\n"
                 "Нажми «Назад», чтобы вернуться."
+            )
+        )
+        try:
+            await callback.bot.edit_message_media(
+                chat_id=callback.message.chat.id,
+                message_id=callback.message.message_id,
+                media=media,
+                reply_markup=back_kb  # Меняем клавиатуру на «Назад»
+            )
+        except Exception as e:
+            await callback.answer(f"Ошибка: {e}")
+
+    elif callback.data == "help":
+        media = InputMediaPhoto(
+            media=help_pic,  
+            caption=(
+                "ТАК ТАК ТАК!!!\n"
+                "ЩА РАЗБЕРЁМСЯ\n"
             )
         )
         try:
