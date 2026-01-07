@@ -165,11 +165,11 @@ async def callback_handler(callback: types.CallbackQuery):
             caption="Вот ваш файл!"
         )
         # Уведомляем пользователя всплывающим окном
-            await callback.answer("Файл отправлен!")
+            await callback.answer("Файл отправлен!", show_alert=True)
         except FileNotFoundError:
-            await callback.answer("Ошибка: файл не найден!")
+            await callback.answer("Ошибка: файл не найден!", show_alert=True)
         except Exception as e:
-            await callback.answer(f"Ошибка: {e}")
+            await callback.answer(f"Ошибка: {e}", show_alert=True)
 
     # Обрабатываем кнопку «Назад»
     
