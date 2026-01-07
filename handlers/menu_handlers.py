@@ -82,11 +82,15 @@ async def callback_handler(callback: types.CallbackQuery):
     
     # Открываем главное меню
     elif callback.data == "menubtn":
-        
+        media = InputMediaPhoto(
+            media=hello,  
+            caption=hello_text
+            )
         try:
             await callback.bot.edit_message_media(
                 chat_id=callback.message.chat.id,
                 message_id=callback.message.message_id,
+                media=media,
                 reply_markup=main_menu_kb  
             )
         except Exception as e:
