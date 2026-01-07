@@ -168,7 +168,7 @@ async def callback_handler(callback: types.CallbackQuery):
         # Уведомляем пользователя всплывающим окном
             await callback.answer("Файл отправлен!", show_alert=True)
          #Удаляем сообщение
-            await callback.message.delete()
+            await callback.answer.message.delete()
         except FileNotFoundError:
             await callback.answer("Ошибка: файл не найден!", show_alert=True)
         except Exception as e:
@@ -194,3 +194,4 @@ async def callback_handler(callback: types.CallbackQuery):
     # Отвечаем на callback (убираем «часики» у кнопки)
 
     await callback.answer()
+
