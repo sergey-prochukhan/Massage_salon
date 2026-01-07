@@ -56,7 +56,9 @@ async def main_board(message: types.Message):
     await message.answer_photo(
         photo=hello,
         caption=hello_text,
-        reply_markup=main_menu_kb
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="✨                Меню                ✨", callback_data="menubtn")]
+        ])
     )
 
 # Хендлер для callback-запросов
@@ -74,6 +76,18 @@ async def callback_handler(callback: types.CallbackQuery):
                 message_id=callback.message.message_id,
                 media=media,
                 reply_markup=back_kb  # Меняем клавиатуру на «Назад»
+            )
+        except Exception as e:
+            await callback.answer(f"Ошибка: {e}")
+    
+    # Открываем главное меню
+    elif callback.data == "menubtn":
+        
+        try:
+            await callback.bot.edit_message_media(
+                chat_id=callback.message.chat.id,
+                message_id=callback.message.message_id,
+                reply_markup=main_menu_kb  
             )
         except Exception as e:
             await callback.answer(f"Ошибка: {e}")
