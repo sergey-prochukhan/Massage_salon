@@ -178,7 +178,7 @@ async def callback_handler(callback: types.CallbackQuery):
 
     #Обрабатываем кнопку "Согласен(а)"
     
-    elif callback.data == "sendmedoc":
+    elif callback.data == "approve":
         await callback.answer(f"Функционал в разработке\n Будет доступен со следующим обновлением.", show_alert=True)
 
     #Обрабатываем кнопку "Скачать"
