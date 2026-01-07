@@ -19,11 +19,11 @@ help_pic= FSInputFile(os.path.join(all_media_dir, 'help_pic.jpeg'))
 
 # Основная клавиатура меню
 main_menu_kb = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="Услуги", callback_data="serv")],
-    [InlineKeyboardButton(text="Контакты", callback_data="contacts")],
-    [InlineKeyboardButton(text="Наши специалисты", callback_data="spec")],
-    [InlineKeyboardButton(text="Помощь", callback_data="help")],
-    [InlineKeyboardButton(text="Записаться на массаж", callback_data="order")]
+    [InlineKeyboardButton(text="💆              Услуги              💆", callback_data="serv")],
+    [InlineKeyboardButton(text="📞             Контакты             📞", callback_data="contacts")],
+    [InlineKeyboardButton(text="⭐         Наши специалисты         ⭐", callback_data="spec")],
+    [InlineKeyboardButton(text="💬              Помощь              💬", callback_data="help")],
+    [InlineKeyboardButton(text="📝       Записаться на массаж       📝", callback_data="order")]
 ])
 
 # Приветственный текст
