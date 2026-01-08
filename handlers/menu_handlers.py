@@ -2,7 +2,7 @@ from aiogram import Router, types, F
 from aiogram.filters.command import Command
 from aiogram.types import FSInputFile, InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
 import os
-from bot_config import all_media_dir, privacy_file, services_text
+from data.bot_config import all_media_dir, privacy_file, services_text
 
 # Инициализация роутера
 menu_han_router = Router()
