@@ -1,12 +1,18 @@
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
 from aiogram.types import InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
-from data.bot_config import privacy_file, services_text, hello, int_pic, out_pic, proc_pic, spec_pic, help_pic
-
+from data.bot_config import services_text
 
 # Инициализация роутера
 menu_han_router = Router()
-
+#images links
+hello = "https://disk.yandex.ru/get/mky90I09j4a4mw"
+int_pic = "https://disk.yandex.ru/get/-hkTCwDDmS0S-Q"
+out_pic = "https://disk.yandex.ru/get/7ddIVQMkvprBmg"
+sale_pic = "https://disk.yandex.ru/get/r_tDrWKvq3u37w"
+help_pic = "https://disk.yandex.ru/get/kZQ1DV7hPaOTdQ"
+spec_pic = "https://disk.yandex.ru/get/b23AAYwefRk1lQ"
+proc_pic = "https://disk.yandex.ru/get/ABiY54bGDF_vAg"
 
 
 
@@ -175,23 +181,23 @@ async def callback_handler(callback: types.CallbackQuery):
         await callback.answer(f"Функционал в разработке\n Будет доступен со следующим обновлением.", show_alert=True)
 
     #Обрабатываем кнопку "Скачать"
-    elif callback.data == "sendmedoc":
-        try:
-            await callback.message.answer_document(
-            document=privacy_file,
-            caption="Вот ваш файл!",
-            reply_markup=order_kb
-        )
+#elif callback.data == "sendmedoc":
+       # try:
+       #     await callback.message.answer_document(
+      #      document=privacy_file,
+     #       caption="Вот ваш файл!",
+      #      reply_markup=order_kb
+       # )
         
-            await callback.message.delete()
+       #     await callback.message.delete()
         # Уведомляем пользователя всплывающим окном
-            await callback.answer("Соглашение отправлено. После ознакомления нажмите кнопку Согласен(а) что бы продолжить.", show_alert=True)
+        #    await callback.answer("Соглашение отправлено. После ознакомления нажмите кнопку Согласен(а) что бы продолжить.", show_alert=True)
         #Удаляем сообщение
-            await callback.message.delete()
-        except FileNotFoundError:
-            await callback.answer("Ошибка: файл не найден!", show_alert=True)
-        except Exception as e:
-            await callback.answer(f"Ошибка: {e}", show_alert=True)
+        #    await callback.message.delete()
+       # except FileNotFoundError:
+       #     await callback.answer("Ошибка: файл не найден!", show_alert=True)
+       # except Exception as e:
+          #  await callback.answer(f"Ошибка: {e}", show_alert=True)
 
     # Обрабатываем кнопку «Назад»
     
