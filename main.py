@@ -13,11 +13,7 @@ BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-<<<<<<< HEAD
 dp.include_routers(order_han_router, menu_han_router)
-=======
-dp.include_routers(menu_han_router)
->>>>>>> 9ad48ff3b67590be33003412fc396203e1a2ac62
 
 async def main():
     logger.info("Запуск бота...")
