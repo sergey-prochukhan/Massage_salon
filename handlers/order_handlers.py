@@ -1,5 +1,6 @@
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
+from main import bot
 
 
 order_han_router = Router()
