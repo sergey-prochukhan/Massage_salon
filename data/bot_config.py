@@ -5,7 +5,14 @@ from aiogram.types import FSInputFile
 all_media_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'img')
 all_misc_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'misc')
 
-sale_pic = FSInputFile(os.path.join(all_media_dir, 'sale_pic.jpg'))
+#images links
+hello = "https://i126.fastpic.org/thumb/2026/0109/91/e182d3fb2b44391c05a6f10dc25b7091.jpeg"
+int_pic = "https://i126.fastpic.org/thumb/2026/0109/07/566a70ab2dce9bb080b6604fa1e80907.jpeg"
+out_pic = "https://i126.fastpic.org/thumb/2026/0109/27/0c618852050d29801dd6b5350dd5a527.jpeg"
+sale_pic = "https://i126.fastpic.org/thumb/2026/0109/b9/d57020e94dede865eb68acce98b470b9.jpeg"
+help_pic = "https://i126.fastpic.org/thumb/2026/0109/12/d6756500d6f7ac45a1b440f2adf75712.jpeg"
+spec_pic = "https://i126.fastpic.org/thumb/2026/0109/dc/4fcb4832654ffb1c92ecb35b0758cfdc.jpeg"
+proc_pic = "https://i126.fastpic.org/thumb/2026/0109/16/021b022a384a141ad026defafcb05d16.jpeg"
 
 sale_text = "Текст Акции\n"
 

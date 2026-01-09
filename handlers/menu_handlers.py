@@ -1,8 +1,7 @@
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
-from aiogram.types import FSInputFile, InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
-from data.bot_config import all_media_dir, privacy_file, services_text
-import os
+from aiogram.types import InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
+from data.bot_config import privacy_file, services_text, hello, int_pic, out_pic, proc_pic, spec_pic, help_pic
 
 
 # Инициализация роутера
@@ -10,13 +9,6 @@ menu_han_router = Router()
 
 
 
-# Загрузка файлов
-hello = FSInputFile(os.path.join(all_media_dir, 'hello.jpg'))
-int_pic = FSInputFile(os.path.join(all_media_dir, 'int_pic.jpg'))
-out_pic = FSInputFile(os.path.join(all_media_dir, 'out_pic.jpg'))
-proc_pic = FSInputFile(os.path.join(all_media_dir, 'proc_pic.jpg'))
-spec_pic = FSInputFile(os.path.join(all_media_dir, 'spec_pic.jpg'))
-help_pic= FSInputFile(os.path.join(all_media_dir, 'help_pic.jpeg'))
 
 # Основная клавиатура меню
 main_menu_kb = InlineKeyboardMarkup(inline_keyboard=[
