@@ -13,7 +13,7 @@ BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-dp.include_routers(order_han_router_han_router, menu_han_router)
+dp.include_routers("""order_han_router""", menu_han_router)
 
 async def main():
     logger.info("Запуск бота...")
@@ -22,4 +22,5 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+
     asyncio.run(main())
