@@ -2,18 +2,18 @@ import asyncio
 import os
 import logging
 from aiogram import Bot, Dispatcher
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 from handlers.order_handlers import order_han_router
 from handlers.menu_handlers import menu_han_router
 
-#load_dotenv()
+load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-dp.include_routers(order_han_router_han_router, menu_han_router)
+dp.include_routers(order_han_router, menu_han_router)
 
 async def main():
     logger.info("Запуск бота...")
