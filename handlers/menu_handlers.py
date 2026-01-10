@@ -47,6 +47,7 @@ back_kb = InlineKeyboardMarkup(inline_keyboard=[
 
 # Хендлер для /start
 @menu_han_router.message(Command("start"))
+@menu_han_router.message(Command("menu"))
 async def main_board(message: types.Message):
     await message.answer_photo(
         photo=hello,
