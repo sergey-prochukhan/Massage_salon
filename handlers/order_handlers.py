@@ -6,7 +6,7 @@ from aiogram.types import CallbackQuery
 import asyncio
 
 order_han_router = Router()
-
+#
 # Определяем состояния
 class OrderStates(StatesGroup):
     wait_massage_type = State()
