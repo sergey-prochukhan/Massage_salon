@@ -1,6 +1,6 @@
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
-from aiogram.types import InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
+from aiogram.types import InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
 from bot_config import services_text, hello, int_pic, out_pic, sale_pic, spec_pic, proc_pic, help_pic, privacy_file
 from bot_config import spec_pic, spec2_pic, spec3_pic, spec4_pic
 # Инициализация роутера
@@ -52,6 +52,11 @@ back_kb = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="← Назад в меню", callback_data="back")]
 ])"""
 
+
+@menu_han_router.message(Command("get_chat_id"))
+async def getting_chat_id(message: types.Message):
+    chat_id=message.chat.id
+    await message.answer(f"{chat_id}")
 
 # Хендлер для /start
 @menu_han_router.message(Command("start"))

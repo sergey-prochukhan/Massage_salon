@@ -1,18 +1,27 @@
 from aiogram import Router, types, F
-from aiogram.filters import StateFilter
+from aiogram.types import  InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import CallbackQuery
 import asyncio
+import sqlite3
 
 order_han_router = Router()
-#
+
+user_name = "name"
+user_t_id = "user_id"
+user_m_type = "massage_type"
+user_date = "date"
+user_cont_inf = "contact"
+
 # Определяем состояния
 class OrderStates(StatesGroup):
     wait_user_name = State()
     wait_massage_type = State()
     wait_date = State()
     wait_contact = State()
+
+
 
 
 #Обрабатываем кнопку "Согласен(а)"
@@ -34,6 +43,7 @@ async def start_ordering(callback: CallbackQuery, state: FSMContext):
         await callback.answer(f"Ошибка: {e}")
     await callback.answer()
 
+#Собираем данные о клиенте по его ответам
 @order_han_router.message(OrderStates.wait_user_name)
 async def get_massage_type(message: types.Message, state: FSMContext):
     user_t_id = message.from_user.id
@@ -79,7 +89,66 @@ async def get_contact(message: types.Message, state: FSMContext):
         f"Контакт: {user_cont_inf}\n"
         f"Ваш ID{user_t_id}\n"
         f"Подтвердите ваш заказ и мы скоро с вами свяжемся.\n"
-        f"Чтобы вернуться в меню, нажмите /menu"
-    )
+        f"Чтобы вернуться в меню, нажмите \n Меню", 
+        reply_markup= InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="Принять✅", callback_data="confirm"),  # Подтвердить
+                    InlineKeyboardButton(text="Изменить✎", callback_data="approve"),  # Внести изменения
+                ],
+                [
+                    InlineKeyboardButton(text="←Меню", callback_data="back")
+                ]
+            ])
+        )
 
+
+@order_han_router.callback_query(F.data == "confirm")
+async def add_order(callback: CallbackQuery, state: FSMContext):
+    try:
+        # Получаем данные из FSM
+        data = await state.get_data()
+        user_t_id = data.get("user_id")
+        user_name = data.get("name")
+        user_m_type = data.get("massage_type")
+        user_date = data.get("date")
+        user_cont_inf = data.get("contact")
+
+        # Подключение к БД и создание таблицы
+        db_con = sqlite3.connect('data/clients.db')
+        db_cur = db_con.cursor()
+        db_cur.execute('''
+            CREATE TABLE IF NOT EXISTS clients (
+                id INTEGER,
+                name TEXT NOT NULL,
+                type TEXT NOT NULL,
+                date TEXT NOT NULL,
+                cont TEXT NOT NULL
+            )
+        ''')
+
+        # Вставка данных
+        db_cur.execute(
+            "INSERT INTO clients (id, name, type, date, cont) VALUES (?, ?, ?, ?, ?)",
+            (user_t_id, user_name, user_m_type, user_date, user_cont_inf)
+        )
+        db_con.commit()
+        db_con.close()
+        group_message = (
+            f"📋 Новая заявка!\n\n"
+            f"Имя: {user_name}\n"
+            f"ID пользователя: {user_t_id}\n"
+            f"Вид массажа: {user_m_type}\n"
+            f"Дата: {user_date}\n"
+            f"Контакт: {user_cont_inf}"
+        )
+        await callback.bot.send_message(
+            chat_id='-1003544458506',
+            text=group_message)
+        
+        await callback.answer("Заявка успешно сохранена!")
+        await state.clear()
+
+    except Exception as e:
+        await callback.answer(f"Не удалось сохранить: {e}")
+                
     await state.clear()  # Очищаем FSM
