@@ -8,9 +8,9 @@ from handlers.menu_handlers import menu_han_router
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-#bot = Bot(token=BOT_TOKEN)
-bot = Bot(token="8531371009:AAFkeufPtHT1M0xYisfgc1uolkO2ceTErAU")
+BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+bot = Bot(token=BOT_TOKEN)
+
 
 dp = Dispatcher()
 dp.include_routers(order_han_router, menu_han_router)
