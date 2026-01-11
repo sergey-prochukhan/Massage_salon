@@ -180,10 +180,8 @@ async def callback_handler(callback: types.CallbackQuery):
         except Exception as e:
             await callback.answer(f"Ошибка: {e}")
 
-    #Обрабатываем кнопку "Согласен(а)"
+
     
-    elif callback.data == "approve":
-        await callback.answer(f"Функционал в разработке\n Будет доступен со следующим обновлением.", show_alert=True)
 
     #Обрабатываем кнопку "Скачать"
     elif callback.data == "sendmedoc":
