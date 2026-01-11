@@ -140,7 +140,7 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         group_message = (
             f"📋 Новая заявка!\n\n"
             f"Имя: {user_name}\n"
-            f"Контакт: {nikname}\n"
+            f"Контакт: @{nikname}\n"
             f"ID пользователя: {user_t_id}\n"
             f"Вид массажа: {user_m_type}\n"
             f"Дата: {user_date}\n"
