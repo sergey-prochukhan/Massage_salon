@@ -10,6 +10,7 @@ order_han_router = Router()
 
 user_name = "name"
 user_t_id = "user_id"
+user_nicname = "nicname"
 user_m_type = "massage_type"
 user_date = "date"
 user_cont_inf = "contact"
@@ -47,6 +48,7 @@ async def start_ordering(callback: CallbackQuery, state: FSMContext):
 @order_han_router.message(OrderStates.wait_user_name)
 async def get_massage_type(message: types.Message, state: FSMContext):
     user_t_id = message.from_user.id
+    user_nicname = message.from_user.username
     user_name = message.text  # Сохраняем ответ
     await state.update_data(name=user_name, user_id=user_t_id)  # Записываем в FSM
 
@@ -77,6 +79,7 @@ async def get_contact(message: types.Message, state: FSMContext):
     # Получаем все сохранённые данные
     data = await state.get_data()
     user_name = data.get("name")
+    nikname = data.get("user_nikname")
     user_t_id = data.get("user_id")
     user_m_type = data.get("massage_type")
     user_date = data.get("date")
@@ -87,7 +90,6 @@ async def get_contact(message: types.Message, state: FSMContext):
         f"Вид массажа: {user_m_type}\n"
         f"Дата: {user_date}\n"
         f"Контакт: {user_cont_inf}\n"
-        f"Ваш ID{user_t_id}\n"
         f"Подтвердите ваш заказ и мы скоро с вами свяжемся.\n"
         f"Чтобы вернуться в меню, нажмите \n Меню", 
         reply_markup= InlineKeyboardMarkup(inline_keyboard=[
@@ -108,6 +110,7 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         # Получаем данные из FSM
         data = await state.get_data()
         user_t_id = data.get("user_id")
+        nikname = data.get("user_nikname")
         user_name = data.get("name")
         user_m_type = data.get("massage_type")
         user_date = data.get("date")
@@ -119,7 +122,8 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         db_cur.execute('''
             CREATE TABLE IF NOT EXISTS clients (
                 id INTEGER,
-                name TEXT NOT NULL,
+                username TEXT NOT NULL,
+                nicname TEXT NOT NULL,
                 type TEXT NOT NULL,
                 date TEXT NOT NULL,
                 cont TEXT NOT NULL
@@ -128,14 +132,15 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
 
         # Вставка данных
         db_cur.execute(
-            "INSERT INTO clients (id, name, type, date, cont) VALUES (?, ?, ?, ?, ?)",
-            (user_t_id, user_name, user_m_type, user_date, user_cont_inf)
+            "INSERT INTO clients (id, nicname, name, type, date, cont) VALUES (?, ?, ?, ?, ?)",
+            (user_t_id, user_nikname, user_m_type, user_date, user_cont_inf)
         )
         db_con.commit()
         db_con.close()
         group_message = (
             f"📋 Новая заявка!\n\n"
             f"Имя: {user_name}\n"
+            f"Контакт: {nikname}\n"
             f"ID пользователя: {user_t_id}\n"
             f"Вид массажа: {user_m_type}\n"
             f"Дата: {user_date}\n"
