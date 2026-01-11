@@ -12,7 +12,6 @@ GROUP_CHAT_ID = "-1003544458506"
 
 order_han_router = Router()
 
-<<<<<<< HEAD
 def escape_markdown(text: str) -> str:
     """Экранирует спецсимволы Markdown: * _ [ ] ( ) ~ ` > # + - | { } . !"""
     if not text:
@@ -40,14 +39,6 @@ def is_valid_markdown(text: str) -> bool:
             else:
                 stack.append('_')
     return len(stack) == 0
-=======
-user_name = "name"
-user_t_id = "user_id"
-user_nicname = "nicname"
-user_m_type = "massage_type"
-user_date = "date"
-user_cont_inf = "contact"
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
 
 class OrderStates(StatesGroup):
     wait_user_name = State()
@@ -92,20 +83,12 @@ def validate_name(text: str) -> tuple[bool, str]:
     return True, None
 
 @order_han_router.message(OrderStates.wait_user_name)
-<<<<<<< HEAD
 async def get_user_name(message: types.Message, state: FSMContext):
     try:
         is_valid, error = validate_name(message.text)
         if not is_valid:
             await message.answer(error)
             return
-=======
-async def get_massage_type(message: types.Message, state: FSMContext):
-    user_t_id = message.from_user.id
-    user_nicname = message.from_user.username
-    user_name = message.text  # Сохраняем ответ
-    await state.update_data(name=user_name, user_id=user_t_id)  # Записываем в FSM
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
 
         user_t_id = message.from_user.id
         user_link = get_user_link(message.from_user)
@@ -211,17 +194,6 @@ async def get_contact(message: types.Message, state: FSMContext):
     user_cont_inf = message.text.strip()
     await state.update_data(contact=user_cont_inf)
 
-<<<<<<< HEAD
-=======
-    # Получаем все сохранённые данные
-    data = await state.get_data()
-    user_name = data.get("name")
-    nikname = data.get("user_nikname")
-    user_t_id = data.get("user_id")
-    user_m_type = data.get("massage_type")
-    user_date = data.get("date")
-    user_cont_inf = data.get("contact")
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
 
     data = await state.get_data()
     user_name = escape_markdown(data.get("name", ""))
@@ -233,7 +205,6 @@ async def get_contact(message: types.Message, state: FSMContext):
         f"{user_name}, спасибо за заявку!\n"
         f"Вид массажа: {user_m_type}\n"
         f"Дата: {user_date}\n"
-<<<<<<< HEAD
         f"Контакт: {escape_markdown(user_cont_inf)}\n"
         f"Профиль: {user_link}\n"
         "Подтвердите ваш заказ, и мы скоро с вами свяжемся."
@@ -261,20 +232,6 @@ async def get_contact(message: types.Message, state: FSMContext):
             final_text,
             reply_markup=keyboard,
             parse_mode="Markdown"
-=======
-        f"Контакт: {user_cont_inf}\n"
-        f"Подтвердите ваш заказ и мы скоро с вами свяжемся.\n"
-        f"Чтобы вернуться в меню, нажмите \n Меню", 
-        reply_markup= InlineKeyboardMarkup(inline_keyboard=[
-                [
-                    InlineKeyboardButton(text="Принять✅", callback_data="confirm"),  # Подтвердить
-                    InlineKeyboardButton(text="Изменить✎", callback_data="approve"),  # Внести изменения
-                ],
-                [
-                    InlineKeyboardButton(text="←Меню", callback_data="back")
-                ]
-            ])
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
         )
     else:
         # Если разметка сломана — отправляем как простой текст (без экранирования)
@@ -288,19 +245,11 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
     try:
         data = await state.get_data()
         user_t_id = data.get("user_id")
-<<<<<<< HEAD
         user_link = data.get("user_link", "")
         user_name = escape_markdown(data.get("name", ""))
         user_m_type = escape_markdown(data.get("massage_type", ""))
         user_date = escape_markdown(data.get("date", ""))
         user_cont_inf = escape_markdown(data.get("contact", ""))
-=======
-        nikname = data.get("user_nikname")
-        user_name = data.get("name")
-        user_m_type = data.get("massage_type")
-        user_date = data.get("date")
-        user_cont_inf = data.get("contact")
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
 
         # Подключение к БД
         db_con = sqlite3.connect('data/clients.db')
@@ -310,13 +259,8 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         db_cur.execute('''
             CREATE TABLE IF NOT EXISTS clients (
                 id INTEGER,
-<<<<<<< HEAD
                 profile_link TEXT NOT NULL,
                 client_name TEXT NOT NULL,
-=======
-                username TEXT NOT NULL,
-                nicname TEXT NOT NULL,
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
                 type TEXT NOT NULL,
                 date TEXT NOT NULL,
                 cont TEXT NOT NULL
@@ -324,13 +268,8 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         ''')
 
         db_cur.execute(
-<<<<<<< HEAD
             "INSERT INTO clients (id, profile_link, client_name, type, date, cont) VALUES (?, ?, ?, ?, ?, ?)",
             (user_t_id, user_link, user_name, user_m_type, user_date, user_cont_inf)
-=======
-            "INSERT INTO clients (id, nicname, name, type, date, cont) VALUES (?, ?, ?, ?, ?)",
-            (user_t_id, user_nikname, user_m_type, user_date, user_cont_inf)
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
         )
         db_con.commit()
 
@@ -338,11 +277,7 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         group_message = (
             f"📋 Новая заявка!\n\n"
             f"Имя: {user_name}\n"
-<<<<<<< HEAD
             f"Профиль: {user_link}\n"
-=======
-            f"Контакт: @{nikname}\n"
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
             f"ID пользователя: {user_t_id}\n"
             f"Вид массажа: {user_m_type}\n"
             f"Дата: {user_date}\n"
@@ -372,15 +307,8 @@ async def add_order(callback: CallbackQuery, state: FSMContext):
         await main_board(callback.message)
 
     except Exception as e:
-<<<<<<< HEAD
         # В случае ошибки — alert с ошибкой
         await callback.answer(f"Не удалось сохранить: {e}", show_alert=True)
     finally:
         if db_con:
             db_con.close()
-
-=======
-        await callback.answer(f"Не удалось сохранить: {e}")
-                
-    await state.clear()  # Очищаем FSM
->>>>>>> fa8d74304959e4dcfc5a348da72c357338bc0da1
