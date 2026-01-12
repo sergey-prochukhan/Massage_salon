@@ -3,13 +3,10 @@ from aiogram.filters.command import Command
 from aiogram.types import InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
 from bot_config import services_text, hello, int_pic, out_pic, sale_pic, spec_pic, proc_pic, help_pic, privacy_file
 from bot_config import spec_pic, spec2_pic, spec3_pic, spec4_pic
+
+
 # Инициализация роутера
 menu_han_router = Router()
-
-
-
-
-
 
 # Основная клавиатура меню
 main_menu_kb = InlineKeyboardMarkup(inline_keyboard=[
@@ -42,16 +39,6 @@ back_kb = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="← Назад", callback_data="back")]
     
 ])
-
-"""spec_kb = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="📝       Записаться на массаж       📝", callback_data="order")],
-    [
-        InlineKeyboardButton(text="⏩", callback_data="spec_next"),  # Следующий специалист
-        InlineKeyboardButton(text="⏪", callback_data="spec_back")   # Предыдущая специалист
-    ],
-    [InlineKeyboardButton(text="← Назад в меню", callback_data="back")]
-])"""
-
 
 @menu_han_router.message(Command("get_chat_id"))
 async def getting_chat_id(message: types.Message):
@@ -110,10 +97,10 @@ async def callback_handler(callback: types.CallbackQuery):
         media = InputMediaPhoto(
             media=out_pic,  
             caption=(
-                "Адрес\n"
-                "Телефон\n"
-                "e-mail\n"
-                "Телеграм\n"
+                "Адрес Ленинград, 3-я улица Строителей,\n дом 25, квартира 12\n"
+                "Телефон +7(999)888-77-66\n"
+                "e-mail massag@horoshiy.ru\n"
+                "Телеграм @aphonasiy_bot\n"
                 "Нажми «Назад», чтобы вернуться."
             )
         )
@@ -298,7 +285,7 @@ async def callback_handler(callback: types.CallbackQuery):
         )
         
             await callback.message.delete()
-        # Уведомляем пользователя всплывающим окном
+        #Уведомляем пользователя всплывающим окном
             await callback.answer("Соглашение отправлено. После ознакомления нажмите кнопку Согласен(а) что бы продолжить.", show_alert=True)
         #Удаляем сообщение
             await callback.message.delete()
