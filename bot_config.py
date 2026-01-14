@@ -11,7 +11,7 @@ int_pic = FSInputFile(os.path.join(all_img_dir, 'int_pic_1.jpg'))
 out_pic = FSInputFile(os.path.join(all_img_dir, 'out_pic_1.jpg'))
 sale_pic = FSInputFile(os.path.join(all_img_dir, 'sale_pic_1.jpg'))
 help_pic = FSInputFile(os.path.join(all_img_dir, 'help_pic_1.jpeg'))
-spec_pic = FSInputFile(os.path.join(all_img_dir, 'spec_pic_1.jpg'))
+spec_pic = FSInputFile(os.path.join(all_img_dir, 'spec_pic_1.jpeg'))
 spec2_pic = FSInputFile(os.path.join(all_img_dir, 'spec2_pic_11.jpeg'))
 spec3_pic = FSInputFile(os.path.join(all_img_dir, 'spec3_pic_11.jpg'))
 spec4_pic = FSInputFile(os.path.join(all_img_dir, 'spec4_pic_11.jpg'))
@@ -24,10 +24,10 @@ sale_text = "Текст Акции\n"
 sale_date = "дата и время акции"
 
 #video path's
-adv_serv_1_vid = FSInputFile(os.path.join(all_img_dir, 'adv_serv_1.mp4'))
-adv_serv_2_vid = FSInputFile(os.path.join(all_img_dir, 'adv_serv_2.mp4'))
-adv_serv_3_vid = FSInputFile(os.path.join(all_img_dir, 'adv_serv_3.mp4'))
-adv_serv_4_vid = FSInputFile(os.path.join(all_img_dir, 'adv_serv_4.mp4'))
+adv_serv_1_vid = FSInputFile(os.path.join(all_video_dir, 'adv_serv_1.mp4'))
+adv_serv_2_vid = FSInputFile(os.path.join(all_video_dir, 'adv_serv_2.mp4'))
+adv_serv_3_vid = FSInputFile(os.path.join(all_video_dir, 'adv_serv_3.mp4'))
+adv_serv_4_vid = FSInputFile(os.path.join(all_video_dir, 'adv_serv_4.mp4'))
 
 #text
 services_text = (

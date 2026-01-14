@@ -5,8 +5,6 @@ from aiogram import Bot, Dispatcher
 from handlers.order_handlers import order_han_router
 from handlers.menu_handlers import menu_han_router
 
-
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 

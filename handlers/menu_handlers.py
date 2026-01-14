@@ -1,6 +1,6 @@
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
-from aiogram.types import InputMediaAnimation, InputMediaVideo, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InputMediaAnimation, InputMediaVideo, InputMediaPhoto, InlineKeyboardMarkup, InlineKeyboardButton
 from bot_config import services_text, hello, int_pic, out_pic, sale_pic, spec_pic, proc_pic, help_pic, privacy_file 
 from bot_config import spec_pic, spec2_pic, spec3_pic, spec4_pic, advance_services_text_1, advance_services_text_2, advance_services_text_3, advance_services_text_4
 from bot_config import adv_serv_1_vid, adv_serv_2_vid, adv_serv_3_vid, adv_serv_4_vid
@@ -26,13 +26,10 @@ order_kb = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 serv_kb = InlineKeyboardMarkup(inline_keyboard=[
-    InlineKeyboardButton(text="Записаться📝", callback_data="order"),
-    InlineKeyboardButton(text="← Назад", callback_data="back")
-], 
-[
-    InlineKeyboardButton(text="← Назад", callback_data="back")
-]
-)
+[InlineKeyboardButton(text="Видео-презентация🎥", callback_data="adv_serv_1")],
+[InlineKeyboardButton(text="Записаться📝", callback_data="order"),
+InlineKeyboardButton(text="← Назад", callback_data="back")]
+])
 
 # Приветственный текст
 hello_text = ("""Здравствуйте! 👋
@@ -83,17 +80,18 @@ async def callback_handler(callback: types.CallbackQuery):
                 chat_id=callback.message.chat.id,
                 message_id=callback.message.message_id,
                 media=media,
-                reply_markup=back_kb  # Меняем клавиатуру на «Назад»
+                reply_markup=serv_kb  # Меняем клавиатуру на «Назад»
             )
         except Exception as e:
             await callback.answer(f"Ошибка: {e}")
     
     # Листаем подробное описание услуг с видеопрезентациями
+    # First service
     elif callback.data == "adv_serv_1":
-        media = InputMediaAnimation(
+        media = InputMediaVideo(
             media=adv_serv_1_vid,  
             caption=advance_services_text_1
-        )
+            )
         try:
             await callback.bot.edit_message_media(
                 chat_id=callback.message.chat.id,
@@ -112,6 +110,85 @@ async def callback_handler(callback: types.CallbackQuery):
                 )
         except Exception as e:
             await callback.answer(f"Ошибка: {e}")
+    
+    #Second service
+
+    elif callback.data == "adv_serv_2":
+        media = InputMediaVideo(
+            media=adv_serv_2_vid,  
+            caption=advance_services_text_2
+            )
+        try:
+            await callback.bot.edit_message_media(
+                chat_id=callback.message.chat.id,
+                message_id=callback.message.message_id,
+                media=media,
+                reply_markup= InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="⏪", callback_data="adv_serv_1"),  # Предыдущая специалист
+                    InlineKeyboardButton(text="⏩", callback_data="adv_serv_3"),  # Следующий специалист   
+                ],
+                [
+                    InlineKeyboardButton(text="Записаться📝", callback_data="order"),
+                    InlineKeyboardButton(text="←Меню", callback_data="back")
+                ]
+                ])
+                )
+        except Exception as e:
+            await callback.answer(f"Ошибка: {e}")   
+
+    #Third service
+
+    elif callback.data == "adv_serv_3":
+        media = InputMediaVideo(
+            media=adv_serv_3_vid,  
+            caption=advance_services_text_3
+            )
+        try:
+            await callback.bot.edit_message_media(
+                chat_id=callback.message.chat.id,
+                message_id=callback.message.message_id,
+                media=media,
+                reply_markup= InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="⏪", callback_data="adv_serv_2"),  # Предыдущая специалист
+                    InlineKeyboardButton(text="⏩", callback_data="adv_serv_4"),  # Следующий специалист   
+                ],
+                [
+                    InlineKeyboardButton(text="Записаться📝", callback_data="order"),
+                    InlineKeyboardButton(text="←Меню", callback_data="back")
+                ]
+                ])
+                )
+        except Exception as e:
+            await callback.answer(f"Ошибка: {e}")
+
+    #Second service
+
+    elif callback.data == "adv_serv_4":
+        media = InputMediaVideo(
+            media=adv_serv_4_vid,  
+            caption=advance_services_text_4
+            )
+        try:
+            await callback.bot.edit_message_media(
+                chat_id=callback.message.chat.id,
+                message_id=callback.message.message_id,
+                media=media,
+                reply_markup= InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="⏪", callback_data="adv_serv_3"),  # Предыдущая специалист
+                    InlineKeyboardButton(text="⏩", callback_data="adv_serv_1"),  # Следующий специалист   
+                ],
+                [
+                    InlineKeyboardButton(text="Записаться📝", callback_data="order"),
+                    InlineKeyboardButton(text="←Меню", callback_data="back")
+                ]
+                ])
+                )
+        except Exception as e:
+            await callback.answer(f"Ошибка: {e}") 
+                       
 
     # Открываем главное меню
     elif callback.data == "menubtn":
