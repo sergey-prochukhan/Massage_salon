@@ -15,7 +15,7 @@ main_menu_kb = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="💆                Услуги                💆", callback_data="serv")],
     [InlineKeyboardButton(text="📞              Контакты              📞", callback_data="contacts")],
     [InlineKeyboardButton(text="⭐         Наши специалисты         ⭐", callback_data="spec")],
-    [InlineKeyboardButton(text="💬               Помощь               💬", callback_data="help")],
+    [InlineKeyboardButton(text="💬              Подробно                💬", callback_data="help")],
     [InlineKeyboardButton(text="📝       Записаться на массаж       📝", callback_data="order")]
 ])
 
@@ -214,7 +214,7 @@ async def callback_handler(callback: types.CallbackQuery):
                 "Адрес Ленинград, 3-я улица Строителей,\n дом 25, квартира 12\n"
                 "Телефон +7(999)888-77-66\n"
                 "e-mail massag@horoshiy.ru\n"
-                "Телеграм @aphonasiy_bot\n"
+                "Телеграм @ma_salon_sample_bot\n"
                 "Нажми «Назад», чтобы вернуться."
             )
         )
@@ -349,12 +349,15 @@ async def callback_handler(callback: types.CallbackQuery):
         except Exception as e:
             await callback.answer(f"Ошибка: {e}")
   
-    #Обработка кнопки "Помощь"
+    #Обработка кнопки "Подробнее"
     elif callback.data == "help":
         media = InputMediaPhoto(
             media=help_pic,  
             caption=(
-                "раздел ещё в стадии разработки\n"
+                "Данный бот разработан исключительно в ознакомительных целях\n"
+                "Представленный функционал может быть переработан под нужды любог бизнеса\n"
+                "Код этого бота можно найти в репозитории https://github.com/PS-Bot-Maker/Massage_salon.git \n"
+                "Функция оформления заявки реализована с записью в БД и оперативной отправкой информации о заявке в приватную группу\n"
             )
         )
         try:
