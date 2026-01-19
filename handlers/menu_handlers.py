@@ -52,6 +52,10 @@ back_kb = InlineKeyboardMarkup(inline_keyboard=[
 async def getting_chat_id(message: types.Message):
     chat_id=message.chat.id
     await message.answer(f"{chat_id}")
+# Хендлер /ping
+@menu_han_router.message(Command("ping"))
+async def ping_answer(message: types.Message):
+    await message.answer(text="PONG")
 
 # Хендлер для /start
 @menu_han_router.message(Command("start"))
